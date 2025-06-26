@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search company</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://plus.unsplash.com/premium_photo-1661281350976-59b9514e5364?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Background image URL */
+            background-size: cover;
+            background-position: center;            
+            z-index: -1; /* Ensure the background image is behind other content */
+        }
+        
+        .search-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            backdrop-filter: blur(5px); /* Blur effect for the container */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto; /* Center the container horizontally */
+        }
+        
+        .search-input {
+            padding: 10px;
+            width: calc(100% - 90px); /* Adjust input width */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        .search-submit {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .search-submit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <form action="/search" method="get">
+            <input type="text" id="searchInput" name="q" list="searchKeywords" class="search-input" placeholder="Search for a company...">
+            <input type="submit" value="Search" class="search-submit">
+        </form>
+    </div>
+
+    <datalist id="searchKeywords">
+        <option value="zoho" data-url="https://en.wikipedia.org/wiki/Zoho_Corporation"></option>
+        <option value="Accenture" data-url="https://en.wikipedia.org/wiki/Accenture"></option>
+        <option value="TCS" data-url="https://en.wikipedia.org/wiki/Tata_Consultancy_Services"></option>
+        <option value="HCL" data-url="https://en.wikipedia.org/wiki/HCLTech"></option>
+        <option value="wipro" data-url="https://en.wikipedia.org/wiki/Wipro"></option>
+    </datalist>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            var input = document.getElementById('searchInput').value.toLowerCase(); 
+            var options = document.getElementById('searchKeywords').querySelectorAll('option'); 
+            
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value.toLowerCase() === input) {
+                    var url = options[i].getAttribute('data-url'); 
+                    if (url) {
+                        window.location.href = url; 
+                        return;
+                    }
+                }
+            }
+            
+            alert('Keyword not found!');
+        });
+    </script>
+</body>
+</html>
